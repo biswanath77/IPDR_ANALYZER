@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 20% 8%;
+    --foreground: 40 90% 90%;
+
+    --card: 210 18% 12%;
+    --card-foreground: 40 90% 90%;
+
+    --popover: 210 18% 10%;
+    --popover-foreground: 40 90% 90%;
+
+    --primary: 40 85% 55%;
+    --primary-foreground: 210 20% 8%;
+
+    --secondary: 180 45% 45%;
+    --secondary-foreground: 210 20% 8%;
+
+    --muted: 210 15% 20%;
+    --muted-foreground: 40 40% 60%;
+
+    --accent: 40 85% 55%;
+    --accent-foreground: 210 20% 8%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 90% 90%;
+
+    --border: 40 30% 25%;
+    --input: 210 15% 15%;
+    --ring: 40 85% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 210 20% 10%;
+    --sidebar-foreground: 40 90% 90%;
+    --sidebar-primary: 40 85% 55%;
+    --sidebar-primary-foreground: 210 20% 8%;
+    --sidebar-accent: 210 15% 15%;
+    --sidebar-accent-foreground: 40 85% 55%;
+    --sidebar-border: 40 20% 20%;
+    --sidebar-ring: 40 85% 55%;
+
+    /* Premium vault theme colors */
+    --vault-gold: 40 85% 55%;
+    --vault-gold-dark: 40 75% 45%;
+    --vault-teal: 180 45% 45%;
+    --vault-dark: 210 20% 8%;
+    --vault-darker: 210 25% 5%;
+    
+    /* Shadows and glows */
+    --shadow-gold: 0 10px 40px -10px hsl(40 85% 55% / 0.3);
+    --shadow-card: 0 8px 32px hsl(210 25% 5% / 0.6);
+    --glow-gold: 0 0 20px hsl(40 85% 55% / 0.4);
+    
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(40 85% 55%), hsl(40 75% 45%));
+    --gradient-dark: linear-gradient(180deg, hsl(210 20% 12%), hsl(210 25% 8%));
+    --gradient-card: linear-gradient(135deg, hsl(210 18% 12% / 0.6), hsl(210 20% 10% / 0.8));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

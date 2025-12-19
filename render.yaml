@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ipdr-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    repoPath: ./
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: MODEL_DRIVE_FILE_ID
+        value: "1nH2FI1UJPLDo6wLLHbumMb-e3jTtBfE7"
+
+  - type: web
+    name: ipdr-frontend
+    env: docker
+    dockerfilePath: Dockerfile.frontend
+    repoPath: ./
+    autoDeploy: true
+    envVars:
+      - key: VITE_API_URL
+        value: "https://<replace-with-backend-url>"

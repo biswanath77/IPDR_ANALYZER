@@ -1,0 +1,592 @@
+
+
+    pip install pandas scikit-learn joblib matplotlib
+
+    Defaulting to user installation because normal site-packages is not writeable
+    Requirement already satisfied: pandas in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (2.3.3)
+    Requirement already satisfied: scikit-learn in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (1.7.2)
+    Requirement already satisfied: joblib in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (1.5.2)
+    Requirement already satisfied: matplotlib in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (3.10.6)
+    Requirement already satisfied: numpy>=1.26.0 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from pandas) (2.3.3)
+    Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from pandas) (2.9.0.post0)
+    Requirement already satisfied: pytz>=2020.1 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from pandas) (2025.2)
+    Requirement already satisfied: tzdata>=2022.7 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from pandas) (2025.2)
+    Requirement already satisfied: scipy>=1.8.0 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from scikit-learn) (1.16.2)
+    Requirement already satisfied: threadpoolctl>=3.1.0 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from scikit-learn) (3.6.0)
+    Requirement already satisfied: contourpy>=1.0.1 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (1.3.3)
+    Requirement already satisfied: cycler>=0.10 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (0.12.1)
+    Requirement already satisfied: fonttools>=4.22.0 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (4.60.1)
+    Requirement already satisfied: kiwisolver>=1.3.1 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (1.4.9)
+    Requirement already satisfied: packaging>=20.0 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (25.0)
+    Requirement already satisfied: pillow>=8 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (11.3.0)
+    Requirement already satisfied: pyparsing>=2.3.1 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from matplotlib) (3.2.5)
+    Requirement already satisfied: six>=1.5 in c:\users\hopna tudu\appdata\roaming\python\python313\site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+    Note: you may need to restart the kernel to use updated packages.
+
+
+    [notice] A new release of pip is available: 25.2 -> 25.3
+    [notice] To update, run: python.exe -m pip install --upgrade pip
+
+    import pandas as pd
+    from pathlib import Path
+
+    data_dir = Path("../data/raw")  # adjust if needed
+
+    # list of csv files you want to use
+    csv_files = [
+        "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv",
+        "Friday-WorkingHours-Morning.pcap_ISCX.csv",
+        "Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv",
+        "Wednesday-workingHours.pcap_ISCX.csv",
+        "Tuesday-WorkingHours.pcap_ISCX.csv",
+        # add others as needed
+    ]
+
+    dfs = []
+    for f in csv_files:
+        path = data_dir / f
+        print("Loading:", path)
+        dfs.append(pd.read_csv(path))
+
+    df = pd.concat(dfs, ignore_index=True)
+    print(df.shape)
+    df.head()
+
+    Loading: ..\data\raw\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
+    Loading: ..\data\raw\Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv
+    Loading: ..\data\raw\Friday-WorkingHours-Morning.pcap_ISCX.csv
+    Loading: ..\data\raw\Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv
+    Loading: ..\data\raw\Wednesday-workingHours.pcap_ISCX.csv
+    Loading: ..\data\raw\Tuesday-WorkingHours.pcap_ISCX.csv
+    (2012223, 79)
+
+        Destination Port   Flow Duration   Total Fwd Packets  \
+    0              54865               3                   2   
+    1              55054             109                   1   
+    2              55055              52                   1   
+    3              46236              34                   1   
+    4              54863               3                   2   
+
+        Total Backward Packets  Total Length of Fwd Packets  \
+    0                        0                           12   
+    1                        1                            6   
+    2                        1                            6   
+    3                        1                            6   
+    4                        0                           12   
+
+        Total Length of Bwd Packets   Fwd Packet Length Max  \
+    0                             0                       6   
+    1                             6                       6   
+    2                             6                       6   
+    3                             6                       6   
+    4                             0                       6   
+
+        Fwd Packet Length Min   Fwd Packet Length Mean   Fwd Packet Length Std  \
+    0                       6                      6.0                     0.0   
+    1                       6                      6.0                     0.0   
+    2                       6                      6.0                     0.0   
+    3                       6                      6.0                     0.0   
+    4                       6                      6.0                     0.0   
+
+       ...   min_seg_size_forward  Active Mean   Active Std   Active Max  \
+    0  ...                     20          0.0          0.0            0   
+    1  ...                     20          0.0          0.0            0   
+    2  ...                     20          0.0          0.0            0   
+    3  ...                     20          0.0          0.0            0   
+    4  ...                     20          0.0          0.0            0   
+
+        Active Min  Idle Mean   Idle Std   Idle Max   Idle Min   Label  
+    0            0        0.0        0.0          0          0  BENIGN  
+    1            0        0.0        0.0          0          0  BENIGN  
+    2            0        0.0        0.0          0          0  BENIGN  
+    3            0        0.0        0.0          0          0  BENIGN  
+    4            0        0.0        0.0          0          0  BENIGN  
+
+    [5 rows x 79 columns]
+
+    import numpy as np
+
+    # Strip column names
+    df.columns = df.columns.str.strip()
+
+    # Drop rows with completely empty label
+    df = df.dropna(subset=["Label"])
+    df["Label"] = df["Label"].str.strip()
+
+    # Map raw labels -> high-level classes
+    label_map = {
+        "BENIGN": "Benign",
+        "DDoS": "DDoS",
+        "DoS slowloris": "DoS",
+        "DoS Slowhttptest": "DoS",
+        "DoS Hulk": "DoS",
+        "DoS GoldenEye": "DoS",
+        "Heartbleed": "Heartbleed",
+        "PortScan": "PortScan",
+        "Web Attack – Brute Force": "WebAttack",
+        "Web Attack – XSS": "WebAttack",
+        "Web Attack – Sql Injection": "WebAttack",
+        "Bot": "Bot",
+        "Infiltration": "Infiltration",
+        "FTP-Patator": "Patator",
+        "SSH-Patator": "Patator",
+    }
+
+    df["Attack_Type"] = df["Label"].map(label_map)
+
+    # Keep only labelled rows we care about
+    df = df[~df["Attack_Type"].isna()].reset_index(drop=True)
+
+    df["Attack_Type"].value_counts()
+
+    Attack_Type
+    Benign        1454613
+    DoS            252661
+    PortScan       158930
+    DDoS           128027
+    Patator         13835
+    Bot              1966
+    Heartbleed         11
+    Name: count, dtype: int64
+
+    numeric_features = [
+        "Flow Duration", "Tot Fwd Pkts", "Tot Bwd Pkts",
+        "TotLen Fwd Pkts", "TotLen Bwd Pkts",
+        "Fwd Pkt Len Mean", "Bwd Pkt Len Mean",
+        "Flow Byts/s", "Flow Pkts/s",
+        "Flow IAT Mean", "Fwd IAT Mean", "Bwd IAT Mean",
+        "Fwd Seg Size Avg", "Bwd Seg Size Avg",
+    ]
+
+    # Make sure the columns exist in df
+    numeric_features = [c for c in numeric_features if c in df.columns]
+    print("Using", len(numeric_features), "numeric features")
+
+    # Example feature: Speed Burst (you already used something similar)
+    df["Speed_Burst"] = (df.get("Flow Byts/s", 0) + df.get("Flow Pkts/s", 0)) / (df["Flow Duration"] + 1)
+    df["Speed_Burst"] = df["Speed_Burst"].replace([np.inf, -np.inf], 0).clip(lower=0)
+
+    numeric_features.append("Speed_Burst")
+    numeric_features = list(dict.fromkeys(numeric_features))  # remove duplicates
+
+    Using 4 numeric features
+
+    X = df[numeric_features].copy()
+
+    X = X.replace([np.inf, -np.inf], np.nan)
+    X = X.fillna(X.median())  # simple, works fine for trees
+
+    y = df["Attack_Type"]
+
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler, LabelEncoder
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y
+    )
+
+    # Encode labels
+    le = LabelEncoder()
+    y_train_enc = le.fit_transform(y_train)
+    y_test_enc  = le.transform(y_test)
+
+    # Scale numeric features (good for many models)
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled  = scaler.transform(X_test)
+
+    from sklearn.ensemble import RandomForestClassifier
+
+    rf = RandomForestClassifier(
+        n_estimators=200,
+        max_depth=None,
+        n_jobs=-1,
+        class_weight="balanced_subsample",
+        random_state=42
+    )
+
+    rf.fit(X_train_scaled, y_train_enc)
+
+    RandomForestClassifier(class_weight='balanced_subsample', n_estimators=200,
+                           n_jobs=-1, random_state=42)
+
+    from sklearn.metrics import classification_report, confusion_matrix
+
+    y_pred_enc = rf.predict(X_test_scaled)
+
+    print(classification_report(y_test_enc, y_pred_enc, target_names=le.classes_))
+
+    cm = confusion_matrix(y_test_enc, y_pred_enc)
+    cm
+
+                  precision    recall  f1-score   support
+
+          Benign       0.99      0.86      0.92    290923
+             Bot       0.03      0.54      0.06       393
+            DDoS       0.98      0.98      0.98     25606
+             DoS       0.74      0.96      0.84     50532
+      Heartbleed       1.00      1.00      1.00         2
+         Patator       0.23      0.77      0.36      2767
+        PortScan       0.63      0.86      0.73     31786
+
+        accuracy                           0.88    402009
+       macro avg       0.66      0.85      0.70    402009
+    weighted avg       0.93      0.88      0.89    402009
+
+    array([[250297,   3391,    283,  16149,      0,   5194,  15609],
+           [    80,    212,      0,      0,      0,      3,     98],
+           [   226,      1,  25026,    346,      0,      2,      5],
+           [  1350,    230,    255,  48332,      0,    247,    118],
+           [     0,      0,      0,      0,      2,      0,      0],
+           [    62,     38,      0,    215,      0,   2119,    333],
+           [   166,   2601,      0,     12,      0,   1537,  27470]])
+
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    plt.figure(figsize=(10, 8))
+    plt.imshow(cm, interpolation="nearest")
+    plt.xticks(np.arange(len(le.classes_)), le.classes_, rotation=45, ha="right")
+    plt.yticks(np.arange(len(le.classes_)), le.classes_)
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title("Confusion Matrix")
+    plt.colorbar()
+    plt.tight_layout()
+    plt.show()
+
+[]
+
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    plt.figure(figsize=(10, 8))
+    plt.imshow(cm, interpolation="nearest")
+    plt.xticks(np.arange(len(le.classes_)), le.classes_, rotation=45, ha="right")
+    plt.yticks(np.arange(len(le.classes_)), le.classes_)
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title("Confusion Matrix")
+    plt.colorbar()
+    plt.tight_layout()
+    plt.show()
+
+[]
+
+    import joblib
+    from pathlib import Path
+
+    models_dir = Path("../models")
+    models_dir.mkdir(parents=True, exist_ok=True)
+
+    joblib.dump(rf, models_dir / "ipdr_model.pkl")
+    joblib.dump(scaler, models_dir / "ipdr_scaler.pkl")
+    joblib.dump(le, models_dir / "ipdr_label_encoder.pkl")
+    joblib.dump(numeric_features, models_dir / "ipdr_features.pkl")
+
+    # Save mean speed burst for risk scoring threshold
+    mean_speed_burst = df["Speed_Burst"].mean()
+    joblib.dump(mean_speed_burst, models_dir / "ipdr_mean_speed_burst.pkl")
+
+    ['..\\models\\ipdr_mean_speed_burst.pkl']
+
+    import joblib
+    from pathlib import Path
+
+    models_dir = Path("models")   # or "../models" if you run from another folder
+    models_dir.mkdir(parents=True, exist_ok=True)
+
+    joblib.dump(rf, models_dir / "ipdr_model.pkl")
+    joblib.dump(scaler, models_dir / "ipdr_scaler.pkl")
+    joblib.dump(le, models_dir / "ipdr_label_encoder.pkl")
+    joblib.dump(numeric_features, models_dir / "ipdr_features.pkl")
+
+    mean_speed_burst = df["Speed_Burst"].mean()
+    joblib.dump(mean_speed_burst, models_dir / "ipdr_mean_speed_burst.pkl")
+
+    ['models\\ipdr_mean_speed_burst.pkl']
+
+    import pandas as pd
+    from test_new_model_synthetic import predict_unseen, print_report  # adjust import if needed
+
+    df = pd.read_csv("unseen_ipdr_mixed.csv")
+    result = predict_unseen(df)
+    print_report(result)
+
+    # Save results for your frontend
+    result.to_csv("unseen_ipdr_mixed_with_predictions.csv", index=False)
+
+    ---------------------------------------------------------------------------
+    ModuleNotFoundError                       Traceback (most recent call last)
+    Cell In[13], line 2
+          1 import pandas as pd
+    ----> 2 from test_new_model_synthetic import predict_unseen, print_report  # adjust import if needed
+          4 df = pd.read_csv("unseen_ipdr_mixed.csv")
+          5 result = predict_unseen(df)
+
+    ModuleNotFoundError: No module named 'test_new_model_synthetic'
+
+    import numpy as np
+    import pandas as pd
+    import joblib
+    from pathlib import Path
+
+    MODELS_DIR = Path("models")   # Update path if needed
+
+    # ---------------- Load Artifacts ----------------
+    def load_artifacts():
+        model = joblib.load(MODELS_DIR / "ipdr_model.pkl")
+        scaler = joblib.load(MODELS_DIR / "ipdr_scaler.pkl")
+        le = joblib.load(MODELS_DIR / "ipdr_label_encoder.pkl")
+        features = joblib.load(MODELS_DIR / "ipdr_features.pkl")
+        mean_speed_burst = joblib.load(MODELS_DIR / "ipdr_mean_speed_burst.pkl")
+        return model, scaler, le, features, mean_speed_burst
+
+
+    # ---------------- Preprocessing -----------------
+    def preprocess_unseen(df_raw, feature_names):
+        df = df_raw.copy()
+        for col in feature_names:
+            if col not in df.columns:
+                df[col] = 0.0
+
+        X = df[feature_names].replace([np.inf, -np.inf], np.nan)
+        X = X.fillna(X.median())
+        return X
+
+
+    # ---------------- Prediction Pipeline ----------------
+    def predict_unseen(df_raw):
+        model, scaler, le, features, mean_speed_burst = load_artifacts()
+        
+        X = preprocess_unseen(df_raw, features)
+        X_scaled = scaler.transform(X)
+
+        y_pred_enc = model.predict(X_scaled)
+        y_proba = model.predict_proba(X_scaled)
+
+        labels = le.inverse_transform(y_pred_enc)
+        max_proba = y_proba.max(axis=1)
+
+        # ---- Risk Scoring ----
+        risk_scores = np.zeros(len(labels))
+        anomaly_mask = labels != "Benign"
+        risk_scores[~anomaly_mask] = 0.0
+        risk_scores[anomaly_mask] = max_proba[anomaly_mask] * 10
+
+        # use Speed_Burst if exists
+        burst_col_candidates = [c for c in X.columns if "Speed_Burst" in c or "Speed Burst" in c]
+        if burst_col_candidates:
+            bcol = burst_col_candidates[0]
+            burst = X[bcol].replace([np.inf, -np.inf], 0).clip(lower=0)
+            high_burst_mask = anomaly_mask & (burst > mean_speed_burst)
+            risk_scores[high_burst_mask] += 2
+
+        risk_scores = np.clip(risk_scores, 0, 10)
+
+        risk_level = pd.cut(
+            risk_scores,
+            bins=[0, 4, 7, 10],
+            labels=["Low", "Med", "High"],
+            include_lowest=True
+        ).astype(str)
+
+        result = df_raw.copy()
+        result["Predicted_Label"] = labels
+        result["Prediction_Confidence"] = max_proba
+        result["Risk_Score"] = risk_scores
+        result["Risk_Level"] = risk_level
+
+        return result
+
+
+    # ---------------- Reporting ----------------
+    def print_report(result: pd.DataFrame):
+        total = len(result)
+        benign = (result["Predicted_Label"] == "Benign").sum()
+        anomalies = total - benign
+
+        print("\n=========== NEW MODEL TEST REPORT ===========")
+        print(f"Total records      : {total}")
+        print(f"Benign predictions : {benign}")
+        print(f"Anomalies detected : {anomalies}")
+        print("---------------------------------------------")
+        print("Prediction distribution:")
+        print(result["Predicted_Label"].value_counts())
+        print("---------------------------------------------")
+        print("Risk Level distribution:")
+        print(result['Risk_Level'].value_counts())
+        print("---------------------------------------------")
+        print("Sample rows:")
+        print(result[[
+            c for c in ["Source_IP","Destination_IP","Timestamp",
+                        "Predicted_Label","Prediction_Confidence",
+                        "Risk_Score","Risk_Level"]
+            if c in result.columns
+        ]].head())
+        print("=============================================\n")
+
+    df = pd.read_csv("unseen_ipdr_mixed.csv")
+    result = predict_unseen(df)
+    print_report(result)
+
+    result.to_csv("unseen_ipdr_mixed_with_predictions.csv", index=False)
+
+
+    =========== NEW MODEL TEST REPORT ===========
+    Total records      : 200
+    Benign predictions : 168
+    Anomalies detected : 32
+    ---------------------------------------------
+    Prediction distribution:
+    Predicted_Label
+    Benign    168
+    DDoS       16
+    DoS        16
+    Name: count, dtype: int64
+    ---------------------------------------------
+    Risk Level distribution:
+    Risk_Level
+    Low     168
+    High     24
+    Med       8
+    Name: count, dtype: int64
+    ---------------------------------------------
+    Sample rows:
+      Source_IP Destination_IP            Timestamp Predicted_Label  \
+    0  10.0.0.1    192.168.1.1  2024-01-01 00:00:00          Benign   
+    1  10.0.0.2    192.168.1.2  2024-01-01 00:00:30          Benign   
+    2  10.0.0.3    192.168.1.3  2024-01-01 00:01:00          Benign   
+    3  10.0.0.4    192.168.1.4  2024-01-01 00:01:30          Benign   
+    4  10.0.0.5    192.168.1.5  2024-01-01 00:02:00          Benign   
+
+       Prediction_Confidence  Risk_Score Risk_Level  
+    0                  0.795         0.0        Low  
+    1                  0.985         0.0        Low  
+    2                  0.930         0.0        Low  
+    3                  0.835         0.0        Low  
+    4                  0.630         0.0        Low  
+    =============================================
+
+    import pandas as pd
+
+    df = pd.read_csv("unseen_ipdr_mixed.csv")
+    result = predict_unseen(df)
+    print_report(result)
+
+
+    =========== NEW MODEL TEST REPORT ===========
+    Total records      : 200
+    Benign predictions : 168
+    Anomalies detected : 32
+    ---------------------------------------------
+    Prediction distribution:
+    Predicted_Label
+    Benign    168
+    DDoS       16
+    DoS        16
+    Name: count, dtype: int64
+    ---------------------------------------------
+    Risk Level distribution:
+    Risk_Level
+    Low     168
+    High     24
+    Med       8
+    Name: count, dtype: int64
+    ---------------------------------------------
+    Sample rows:
+      Source_IP Destination_IP            Timestamp Predicted_Label  \
+    0  10.0.0.1    192.168.1.1  2024-01-01 00:00:00          Benign   
+    1  10.0.0.2    192.168.1.2  2024-01-01 00:00:30          Benign   
+    2  10.0.0.3    192.168.1.3  2024-01-01 00:01:00          Benign   
+    3  10.0.0.4    192.168.1.4  2024-01-01 00:01:30          Benign   
+    4  10.0.0.5    192.168.1.5  2024-01-01 00:02:00          Benign   
+
+       Prediction_Confidence  Risk_Score Risk_Level  
+    0                  0.795         0.0        Low  
+    1                  0.985         0.0        Low  
+    2                  0.930         0.0        Low  
+    3                  0.835         0.0        Low  
+    4                  0.630         0.0        Low  
+    =============================================
+
+    import matplotlib.pyplot as plt
+
+    label_counts = result["Predicted_Label"].value_counts()
+
+    plt.figure(figsize=(8, 5))
+    label_counts.plot(kind="bar")
+    plt.title("Prediction Distribution by Label")
+    plt.xlabel("Label")
+    plt.ylabel("Count")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
+
+[]
+
+    import numpy as np
+    from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+    import matplotlib.pyplot as plt
+
+    # 1. Scale test data (if not already)
+    X_test_scaled = scaler.transform(X_test)
+
+    # 2. Predict on test set
+    y_pred_enc = rf.predict(X_test_scaled)
+
+    # 3. Accuracy
+    acc = accuracy_score(y_test_enc, y_pred_enc)
+    print(f"✅ Accuracy: {acc * 100:.2f}%")
+
+    # 4. Detailed classification report (per class Precision / Recall / F1)
+    print("\n📊 Classification report:")
+    print(classification_report(y_test_enc, y_pred_enc, target_names=le.classes_))
+
+    # 5. Confusion matrix
+    cm = confusion_matrix(y_test_enc, y_pred_enc)
+
+    plt.figure(figsize=(8, 6))
+    plt.imshow(cm, interpolation="nearest")
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted label")
+    plt.ylabel("True label")
+    plt.xticks(np.arange(len(le.classes_)), le.classes_, rotation=45, ha="right")
+    plt.yticks(np.arange(len(le.classes_)), le.classes_)
+    plt.colorbar()
+    plt.tight_layout()
+    plt.show()
+
+    ✅ Accuracy: 87.92%
+
+    📊 Classification report:
+                  precision    recall  f1-score   support
+
+          Benign       0.99      0.86      0.92    290923
+             Bot       0.03      0.54      0.06       393
+            DDoS       0.98      0.98      0.98     25606
+             DoS       0.74      0.96      0.84     50532
+      Heartbleed       1.00      1.00      1.00         2
+         Patator       0.23      0.77      0.36      2767
+        PortScan       0.63      0.86      0.73     31786
+
+        accuracy                           0.88    402009
+       macro avg       0.66      0.85      0.70    402009
+    weighted avg       0.93      0.88      0.89    402009
+
+[]
+
+    report_text = classification_report(y_test_enc, y_pred_enc, target_names=le.classes_)
+
+    with open("ipdr_model_metrics.txt", "w") as f:
+        f.write(f"Accuracy: {acc * 100:.2f}%\n\n")
+        f.write("Classification report:\n")
+        f.write(report_text)
+
+    print("📁 Saved metrics to ipdr_model_metrics.txt")
+
+    📁 Saved metrics to ipdr_model_metrics.txt
